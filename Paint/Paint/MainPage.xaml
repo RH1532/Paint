@@ -7,6 +7,14 @@
              Title="Finger Paint">
 
     <Grid BackgroundColor="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Slider Maximum="100" MinimumTrackColor ="Black" MaximumTrackColor ="Black"
+                ValueChanged="OnSliderValueChanged" />
+
         <skia:SKCanvasView x:Name="canvasView"
                            PaintSurface="OnCanvasViewPaintSurface" />
         <Grid.Effects>

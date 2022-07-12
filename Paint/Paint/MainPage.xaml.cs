@@ -17,6 +17,7 @@ namespace Paint
 	{
 		Dictionary<long, SKPath> inProgressPaths = new Dictionary<long, SKPath>();
 		List<SKPath> completedPaths = new List<SKPath>();
+        List<SKPaint> colors = new List<SKPaint>();
         SKPaint paint = new SKPaint
         {
             Style = SKPaintStyle.Stroke,
@@ -29,6 +30,11 @@ namespace Paint
 		{
 			InitializeComponent();
 		}
+        void OnSliderValueChanged(object sender, ValueChangedEventArgs args)
+        {
+            Slider slider = (Slider)sender;
+            slider.ThumbColor = SKColors.Red.ToFormsColor();
+        }
         void OnTouchEffectAction(object sender, TouchActionEventArgs args)
         {
             switch (args.Type)
@@ -56,6 +62,7 @@ namespace Paint
                     if (inProgressPaths.ContainsKey(args.Id))
                     {
                         completedPaths.Add(inProgressPaths[args.Id]);
+                        colors.Add(paint.Clone());
                         inProgressPaths.Remove(args.Id);
                         canvasView.InvalidateSurface();
                     }
@@ -74,10 +81,12 @@ namespace Paint
         {
             SKCanvas canvas = args.Surface.Canvas;
             canvas.Clear();
+            int i = 0;
 
             foreach (SKPath path in completedPaths)
             {
-                canvas.DrawPath(path, paint);
+                canvas.DrawPath(path, colors[i]);
+                i++;
             }
 
             foreach (SKPath path in inProgressPaths.Values)
