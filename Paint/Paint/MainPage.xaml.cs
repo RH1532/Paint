@@ -33,7 +33,12 @@ namespace Paint
         void OnSliderValueChanged(object sender, ValueChangedEventArgs args)
         {
             Slider slider = (Slider)sender;
-            slider.ThumbColor = SKColors.Red.ToFormsColor();
+            UInt32 value = ((uint)SKColors.White) / (uint)slider.Value;
+            Byte r = (byte)(value / (256 ^ 2));
+            Byte g = (byte)((value / 256) % 256);
+            Byte b = (byte)(value % 256);
+            slider.ThumbColor = new SKColor(r, g, b).ToFormsColor();
+            paint.Color = new SKColor(r, g, b);
         }
         void OnTouchEffectAction(object sender, TouchActionEventArgs args)
         {

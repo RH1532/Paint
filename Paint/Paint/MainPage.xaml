@@ -12,14 +12,17 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Slider Maximum="100" MinimumTrackColor ="Black" MaximumTrackColor ="Black"
+        <Slider Maximum="100" Minimum="1" MinimumTrackColor ="Black" MaximumTrackColor ="Black"
                 ValueChanged="OnSliderValueChanged" />
 
-        <skia:SKCanvasView x:Name="canvasView"
+        <Grid BackgroundColor="White" Grid.Row="1">
+            <skia:SKCanvasView x:Name="canvasView"
                            PaintSurface="OnCanvasViewPaintSurface" />
-        <Grid.Effects>
+            
+            <Grid.Effects>
             <tt:TouchEffect Capture="True"
                             TouchAction="OnTouchEffectAction" />
         </Grid.Effects>
+        </Grid>
     </Grid>
 </ContentPage>
